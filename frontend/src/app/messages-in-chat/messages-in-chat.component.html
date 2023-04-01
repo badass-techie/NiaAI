@@ -1,0 +1,26 @@
+<div class="messages-in-chat-component row g-0" *ngIf="messageService.chat">
+    <div class="recipient-header col-12 g-0">
+        <img [src]="messageService.chat.otherMemberAvatar" class="avatar" alt="avatar">
+        <div class="username">{{messageService.chat.otherMemberUsername}}</div>
+        <a class="delete-button" (click)="deleteChat()"><fa-icon [icon]="deleteIcon" ></fa-icon></a>
+    </div>
+    <div id="message-list" class="message-list col-sm-11 col-md-9 col-lg-9 col-xl-7 g-0">
+        <div *ngFor="let message of messageService.messages$"
+             [ngClass]="{'sent-message-wrapper': message.senderName === you, 'received-message-wrapper': message.senderName !== you}">
+
+            <div [ngClass]="{'sent-message': message.senderName === you, 'received-message': message.senderName !== you}">
+                <div class="message-text">{{message.text}}</div>
+                <div class="message-time">{{message.timeSent}}</div>
+            </div>
+        </div>
+    </div>
+    <div class="new-message-wrapper col-sm-11 col-md-9 col-lg-9 col-xl-7 g-0">
+        <form class="new-message" [formGroup]="messageForm" (ngSubmit)="sendMessage()">
+            <label class="text-with-inline-placeholder new-message-input">
+                <input type="text" id="search" placeholder=" " class="form-control text-edit" [formControlName]="'message'">
+                <span class="text-hint">Message</span>
+            </label>
+            <a class="send-button" (click)="sendMessage()"><fa-icon [icon]="sendIcon" ></fa-icon></a>
+        </form>
+    </div>
+</div>
