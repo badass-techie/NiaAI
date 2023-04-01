@@ -1,5 +1,5 @@
 import openai
-openai.api_key = "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"
+openai.api_key = ""
 
 messages=[
             {"role": "system", "content": "You are an AI whose sole objective is to discover a user's purpose. "
