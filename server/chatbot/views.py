@@ -20,7 +20,7 @@ class ChatView(APIView):
 
     def post(self, request):
         data = request.data             # Get payload
-        openai.api_key = "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"
+        openai.api_key = ""
 
         if len(data) < 16:
             # that means we're still at the stage where the AI asks a user their purpose
