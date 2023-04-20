@@ -1,0 +1,46 @@
+services:
+  database:
+    image: postgres:latest
+    environment:
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: postgres
+      POSTGRES_DB: niaai  
+    ports:
+      - 5433:5432
+    expose:
+      - 5432
+    restart: on-failure
+
+  tensorflow:
+    image: 'tensorflow/serving:latest'
+    expose:
+        - 8500
+        - 8501
+    volumes:
+      - ./models/BERT:/models/BERT
+    environment:
+      MODEL_BASE_PATH: "/models"
+      MODEL_NAME: "BERT"
+    restart: on-failure
+
+  server:
+    build: ./server
+    ports:
+      - 8000:8000
+    volumes:
+      - ./server:/server
+    command:
+      - sh
+      - -c
+      - |
+        python manage.py makemigrations
+        python manage.py migrate 
+        python manage.py runserver 0.0.0.0:8000
+    env_file:
+      - ./server/.env
+    restart: on-failure
+    depends_on:
+      - database
+      - tensorflow
+
+  

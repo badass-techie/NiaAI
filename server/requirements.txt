@@ -2,6 +2,7 @@ Django
 psycopg2-binary
 djangorestframework
 pandas
+nltk
 numpy
 Pillow
 requests
@@ -9,5 +10,4 @@ django-cors-headers
 matplotlib
 scikit-learn
 openai
-textblob
 tqdm
