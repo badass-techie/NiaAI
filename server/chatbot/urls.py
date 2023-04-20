@@ -8,6 +8,6 @@ router.register(r'groups', GroupViewSet)
 router.register(r'users', UserViewSet)
 
 urlpatterns = [
-    path('chat', ChatView.as_view()),
+    path('chat/', ChatView.as_view()),
     path('', include(router.urls))
 ]
